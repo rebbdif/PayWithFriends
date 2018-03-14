@@ -80,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10123AF32059B9E000E5F677 /* Image Recognition */ = {
+			isa = PBXGroup;
+			children = (
+				10CA77D02053CCB500B9675E /* SLVImageRecognition.swift */,
+			);
+			name = "Image Recognition";
+			sourceTree = "<group>";
+		};
 		10CA77872052C41F00B9675E = {
 			isa = PBXGroup;
 			children = (
@@ -136,7 +144,7 @@
 			children = (
 				10CA77CF2053CC8300B9675E /* Adding People */,
 				10CA77CC2052FDF500B9675E /* Entities */,
-				10CA77D02053CCB500B9675E /* SLVImageRecognition.swift */,
+				10123AF32059B9E000E5F677 /* Image Recognition */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
