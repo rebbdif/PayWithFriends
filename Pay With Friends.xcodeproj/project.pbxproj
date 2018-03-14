@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		10CA77942052C41F00B9675E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA77932052C41F00B9675E /* AppDelegate.swift */; };
-		10CA77962052C41F00B9675E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA77952052C41F00B9675E /* ViewController.swift */; };
-		10CA77992052C41F00B9675E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10CA77972052C41F00B9675E /* Main.storyboard */; };
 		10CA779B2052C41F00B9675E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10CA779A2052C41F00B9675E /* Assets.xcassets */; };
 		10CA779E2052C41F00B9675E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10CA779C2052C41F00B9675E /* LaunchScreen.storyboard */; };
-		10CA77A92052C41F00B9675E /* Pay_With_FriendsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA77A82052C41F00B9675E /* Pay_With_FriendsTests.swift */; };
+		10CA77A92052C41F00B9675E /* SLVImageRecognitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA77A82052C41F00B9675E /* SLVImageRecognitionTests.swift */; };
 		10CA77B42052C41F00B9675E /* Pay_With_FriendsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA77B32052C41F00B9675E /* Pay_With_FriendsUITests.swift */; };
+		10CA77C52052C87200B9675E /* SLVPeopleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA77C42052C87200B9675E /* SLVPeopleVC.swift */; };
+		10CA77C92052EDA700B9675E /* SLVPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA77C82052EDA700B9675E /* SLVPerson.swift */; };
+		10CA77CB2052EEE100B9675E /* SLVItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA77CA2052EEE100B9675E /* SLVItem.swift */; };
+		10CA77CE205348B400B9675E /* SLVPersonVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA77CD205348B400B9675E /* SLVPersonVCCell.swift */; };
+		10CA77D12053CCB500B9675E /* SLVImageRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA77D02053CCB500B9675E /* SLVImageRecognition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,17 +39,20 @@
 /* Begin PBXFileReference section */
 		10CA77902052C41F00B9675E /* Pay With Friends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pay With Friends.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		10CA77932052C41F00B9675E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		10CA77952052C41F00B9675E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		10CA77982052C41F00B9675E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		10CA779A2052C41F00B9675E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10CA779D2052C41F00B9675E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10CA779F2052C41F00B9675E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10CA77A42052C41F00B9675E /* Pay With FriendsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pay With FriendsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		10CA77A82052C41F00B9675E /* Pay_With_FriendsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pay_With_FriendsTests.swift; sourceTree = "<group>"; };
+		10CA77A82052C41F00B9675E /* SLVImageRecognitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLVImageRecognitionTests.swift; sourceTree = "<group>"; };
 		10CA77AA2052C41F00B9675E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10CA77AF2052C41F00B9675E /* Pay With FriendsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pay With FriendsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		10CA77B32052C41F00B9675E /* Pay_With_FriendsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pay_With_FriendsUITests.swift; sourceTree = "<group>"; };
 		10CA77B52052C41F00B9675E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10CA77C42052C87200B9675E /* SLVPeopleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLVPeopleVC.swift; sourceTree = "<group>"; };
+		10CA77C82052EDA700B9675E /* SLVPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLVPerson.swift; sourceTree = "<group>"; };
+		10CA77CA2052EEE100B9675E /* SLVItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLVItem.swift; sourceTree = "<group>"; };
+		10CA77CD205348B400B9675E /* SLVPersonVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLVPersonVCCell.swift; sourceTree = "<group>"; };
+		10CA77D02053CCB500B9675E /* SLVImageRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLVImageRecognition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +89,7 @@
 				10CA77912052C41F00B9675E /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		10CA77912052C41F00B9675E /* Products */ = {
 			isa = PBXGroup;
@@ -98,8 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				10CA77932052C41F00B9675E /* AppDelegate.swift */,
-				10CA77952052C41F00B9675E /* ViewController.swift */,
-				10CA77972052C41F00B9675E /* Main.storyboard */,
+				10CA77C32052C84100B9675E /* Classes */,
 				10CA779A2052C41F00B9675E /* Assets.xcassets */,
 				10CA779C2052C41F00B9675E /* LaunchScreen.storyboard */,
 				10CA779F2052C41F00B9675E /* Info.plist */,
@@ -110,7 +116,7 @@
 		10CA77A72052C41F00B9675E /* Pay With FriendsTests */ = {
 			isa = PBXGroup;
 			children = (
-				10CA77A82052C41F00B9675E /* Pay_With_FriendsTests.swift */,
+				10CA77A82052C41F00B9675E /* SLVImageRecognitionTests.swift */,
 				10CA77AA2052C41F00B9675E /* Info.plist */,
 			);
 			path = "Pay With FriendsTests";
@@ -123,6 +129,34 @@
 				10CA77B52052C41F00B9675E /* Info.plist */,
 			);
 			path = "Pay With FriendsUITests";
+			sourceTree = "<group>";
+		};
+		10CA77C32052C84100B9675E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				10CA77CF2053CC8300B9675E /* Adding People */,
+				10CA77CC2052FDF500B9675E /* Entities */,
+				10CA77D02053CCB500B9675E /* SLVImageRecognition.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		10CA77CC2052FDF500B9675E /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				10CA77C82052EDA700B9675E /* SLVPerson.swift */,
+				10CA77CA2052EEE100B9675E /* SLVItem.swift */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
+		10CA77CF2053CC8300B9675E /* Adding People */ = {
+			isa = PBXGroup;
+			children = (
+				10CA77C42052C87200B9675E /* SLVPeopleVC.swift */,
+				10CA77CD205348B400B9675E /* SLVPersonVCCell.swift */,
+			);
+			name = "Adding People";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +221,7 @@
 		10CA77882052C41F00B9675E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = SLV;
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Леонид Серебряный";
@@ -234,7 +269,6 @@
 			files = (
 				10CA779E2052C41F00B9675E /* LaunchScreen.storyboard in Resources */,
 				10CA779B2052C41F00B9675E /* Assets.xcassets in Resources */,
-				10CA77992052C41F00B9675E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,8 +293,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10CA77962052C41F00B9675E /* ViewController.swift in Sources */,
+				10CA77CB2052EEE100B9675E /* SLVItem.swift in Sources */,
+				10CA77D12053CCB500B9675E /* SLVImageRecognition.swift in Sources */,
 				10CA77942052C41F00B9675E /* AppDelegate.swift in Sources */,
+				10CA77C92052EDA700B9675E /* SLVPerson.swift in Sources */,
+				10CA77C52052C87200B9675E /* SLVPeopleVC.swift in Sources */,
+				10CA77CE205348B400B9675E /* SLVPersonVCCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10CA77A92052C41F00B9675E /* Pay_With_FriendsTests.swift in Sources */,
+				10CA77A92052C41F00B9675E /* SLVImageRecognitionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,14 +334,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		10CA77972052C41F00B9675E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				10CA77982052C41F00B9675E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		10CA779C2052C41F00B9675E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
