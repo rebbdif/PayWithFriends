@@ -10,6 +10,9 @@ import UIKit
 import CoreML
 import Vision
 
+import сoremltools
+
+
 /// Класс, занимающийся распознаванием изображений
 class SLVImageRecognition: NSObject {
 
