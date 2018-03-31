@@ -14,16 +14,33 @@ protocol SLVPersonVCFooterViewDelegate {
 }
 
 
-class SLVPersonVCFooterView: UIView, UITextFieldDelegate  {
+class SLVPersonVCFooterView: UIView, UITextFieldDelegate, UIGestureRecognizerDelegate  {
 	
 	public var avatarView = UILabel()
 	public var nameLabel = UITextField()
 	public var delegate: SLVPersonVCFooterViewDelegate?
 	
+	 init() {
+		super.init(frame:.zero)
+		sizeToFit()
+		self.backgroundColor = .green;
+		self.configureViews()
+	}
+	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
+		self.configureViews()
+		self.backgroundColor = .green;
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	func configureViews() {
 		self.avatarView.translatesAutoresizingMaskIntoConstraints = false
 		self.nameLabel.translatesAutoresizingMaskIntoConstraints = false
+		self.nameLabel.backgroundColor = .blue
 		
 		self.avatarView.layer.cornerRadius = 32
 		self.avatarView.layer.masksToBounds = true
@@ -37,10 +54,12 @@ class SLVPersonVCFooterView: UIView, UITextFieldDelegate  {
 		self.nameLabel.returnKeyType = .done
 		self.nameLabel.delegate = self
 		self.addSubview(self.nameLabel)
-	}
-	
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+		
+		self.isUserInteractionEnabled = true
+		
+		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
+		tapGesture.numberOfTapsRequired = 1
+		self.addGestureRecognizer(tapGesture)
 	}
 	
 	
@@ -74,6 +93,15 @@ class SLVPersonVCFooterView: UIView, UITextFieldDelegate  {
 		self.nameLabel.endEditing(true)
 		return false
 	}
+	
+	
+	@objc
+	func cellTapped ()
+	{
+		self.nameLabel.becomeFirstResponder()
+		self.nameLabel.inputAccessoryView = self
+	}
+	
 	
 }
 

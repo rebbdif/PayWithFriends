@@ -20,7 +20,7 @@ class SLVImageRecognition: NSObject {
 	/// - Parameter image: Картинка, которую распознаем
 	/// - Returns: массив элементов чека
 	public func recogniseImage(_ image:UIImage!) -> [SLVItem] {
-		var result = [SLVItem]()
+		let result = [SLVItem]()
 		// вот сюда приделывай вызовы CoreML и тд.
 		
 		return result
