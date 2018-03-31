@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		106AD819206ACE3A005EC48D /* SLVPersonVCFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106AD818206ACE3A005EC48D /* SLVPersonVCFooterView.swift */; };
 		10CA77942052C41F00B9675E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CA77932052C41F00B9675E /* AppDelegate.swift */; };
 		10CA779B2052C41F00B9675E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10CA779A2052C41F00B9675E /* Assets.xcassets */; };
 		10CA779E2052C41F00B9675E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10CA779C2052C41F00B9675E /* LaunchScreen.storyboard */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		106AD818206ACE3A005EC48D /* SLVPersonVCFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLVPersonVCFooterView.swift; sourceTree = "<group>"; };
 		10CA77902052C41F00B9675E /* Pay With Friends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pay With Friends.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		10CA77932052C41F00B9675E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10CA779A2052C41F00B9675E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			children = (
 				10CA77C42052C87200B9675E /* SLVPeopleVC.swift */,
 				10CA77CD205348B400B9675E /* SLVPersonVCCell.swift */,
+				106AD818206ACE3A005EC48D /* SLVPersonVCFooterView.swift */,
 			);
 			name = "Adding People";
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				106AD819206ACE3A005EC48D /* SLVPersonVCFooterView.swift in Sources */,
 				10CA77CB2052EEE100B9675E /* SLVItem.swift in Sources */,
 				10CA77D12053CCB500B9675E /* SLVImageRecognition.swift in Sources */,
 				10CA77942052C41F00B9675E /* AppDelegate.swift in Sources */,
