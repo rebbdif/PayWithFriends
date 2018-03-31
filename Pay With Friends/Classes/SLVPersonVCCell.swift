@@ -93,6 +93,13 @@ class SLVPersonVCCell: UITableViewCell, UITextFieldDelegate {
 		return false
 	}
 	
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		guard let text = textField.text else {
+			print("no text entered"); return;
+		}
+		self.person?.name = text
+	}
+	
 	override func resignFirstResponder() -> Bool {
 		self.nameLabel.resignFirstResponder()
 		return true
@@ -100,7 +107,7 @@ class SLVPersonVCCell: UITableViewCell, UITextFieldDelegate {
 	
 	override func setSelected(_ selected: Bool, animated: Bool) {
 		super.setSelected(selected, animated: animated)
-		self.nameLabel.becomeFirstResponder()
+	//	self.nameLabel.becomeFirstResponder()
 	}
 	
 }

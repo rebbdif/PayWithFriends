@@ -95,11 +95,15 @@ class SLVPeopleVC: UITableViewController, SLVPersonVCCellDelegate
 		tableView.deselectRow(at: indexPath, animated: true)
 	}
 	
+	
 	@objc
 	func done() {
-		_ = self.resignFirstResponder()
-		let rightButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action:#selector(goToNextScreen))
+		let rightButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action:#selector(goToNextScreen))
 		self.navigationItem.rightBarButtonItem = rightButton
+		
+		_ = self.resignFirstResponder()
+		self.endAddingPeople()
+		
 	}
 	
 	@objc
@@ -130,19 +134,27 @@ class SLVPeopleVC: UITableViewController, SLVPersonVCCellDelegate
 	}
 	
 	func cellDidEndEnteringName(cell: SLVPersonVCCell) {
-		_ = cell.resignFirstResponder()
-		guard let name = cell.nameLabel.text else { print("no name entered"); return}
-		cell.person?.name = name
+	//	_ = cell.resignFirstResponder()
+//		guard let name = cell.nameLabel.text else { print("no name entered"); return}
+//		cell.person?.name = name
 		
 		self.isLastCell(cell: cell) ?
 			self.addNewCell() :
 			self.endAddingPeople()
 	}
 	
+	func isLastCell(cell: SLVPersonVCCell) -> Bool {
+		if self.people.count == 0 { return true }
+		if cell.person == self.people[self.people.count - 1] {
+			return true
+		}
+		return false
+	}
+	
 	func endAddingPeople() {
 		_ = self.resignFirstResponder()
 		self.hideKeyboard()
-		self.removeLastCellIfItHasNoName()
+		removeLastCellIfItHasNoName()
 	}
 	
 	func removeLastCellIfItHasNoName()  {
@@ -161,14 +173,6 @@ class SLVPeopleVC: UITableViewController, SLVPersonVCCellDelegate
 	
 	func hideKeyboard() {
 		_ = self.resignFirstResponder()
-	}
-	
-	func isLastCell(cell: SLVPersonVCCell) -> Bool {
-		if self.people.count == 0 { return true }
-		if cell.person == self.people[self.people.count - 1] {
-			return true
-		}
-		return false
 	}
 	
 	override func resignFirstResponder() -> Bool {

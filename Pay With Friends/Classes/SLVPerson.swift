@@ -20,6 +20,9 @@ public class SLVPerson: NSObject {
 		self.name = name
 	}
 	
+	public override var description: String {
+		return "SLVPerson. name = \(name)"
+	}
 	
 }
 
