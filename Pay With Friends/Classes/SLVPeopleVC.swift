@@ -11,12 +11,11 @@ import UIKit
 
 
 /// Контроллер добавления людей
-class SLVPeopleVC: UITableViewController, SLVPersonVCCellDelegate // UITableViewDelegate, UITableViewDataSource
+class SLVPeopleVC: UIViewController, SLVPersonVCCellDelegate , UITableViewDelegate, UITableViewDataSource
 {
-	
     var people = [SLVPerson]()
-//	var tableView = UITableView()
-	var addingNewPeople = false
+	var tableView = UITableView()
+//	var addingNewPeople = false
 	
 	init() {
 		super.init(nibName: nil, bundle: nil)
@@ -33,85 +32,80 @@ class SLVPeopleVC: UITableViewController, SLVPersonVCCellDelegate // UITableView
         super.viewDidLoad()
 		self.view.backgroundColor = .lightGray
 		self.navigationItem.title = "Люди"
-		let rightButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action:#selector(add))
+		let rightButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action:#selector(goToNextScreen))
 		self.navigationItem.rightBarButtonItem = rightButton
 		self.navigationController?.navigationBar.prefersLargeTitles = true
 		self.configureTableView()
-		
-//		NotificationCenter.default.addObserver(
-//			self,
-//			selector: #selector(keyboardWillShow(_:)),
-//			name: Notification.Name.UIKeyboardWillShow,
-//			object: nil
-//		)
-//		NotificationCenter.default.addObserver(
-//			self,
-//			selector: #selector(keyboardWillHide(_:)),
-//			name: Notification.Name.UIKeyboardWillHide,
-//			object: nil
-//		)
+	self.createAddView()
     }
 	
-	deinit {
-		NotificationCenter.default.removeObserver(self)
-	}
-	
-	
-	//MARK: Table View
-
 	func configureTableView() {
 		self.tableView = UITableView(frame: self.view.frame)
 		self.tableView.delegate = self
 		self.tableView.dataSource = self
 		self.tableView.register(SLVPersonVCCell.self, forCellReuseIdentifier: SLVPersonVCCell.reuseId)
-		self.tableView.rowHeight = 80
+		self.tableView.rowHeight = SLVPersonVCCell.cellHeight
+		self.view.addSubview(self.tableView)
 	}
 	
-	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+	func createNextButton() {
+		let height = CGFloat(44)
+		let rect = CGRect(x: 0, y: self.view.frame.height - height , width: self.view.frame.width, height: height)
+		let nextView = UIButton(frame:rect)
+		let paragraphStyle = NSMutableParagraphStyle()
+		paragraphStyle.alignment = .left
+		let attributes: [NSAttributedStringKey: Any] = [
+			.strokeColor : UIColor.darkText,
+			.foregroundColor : UIColor.darkText,
+			.font : UIFont.boldSystemFont(ofSize: 18),
+			.paragraphStyle: paragraphStyle
+			]
+		let title = NSAttributedString(string: "Дальше", attributes:attributes )
+		nextView.setAttributedTitle(title, for: .normal)
+		nextView.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+		nextView.backgroundColor = UIColor.white//.withAlphaComponent(0.5)
+		self.view.addSubview(nextView)
+	}
+	
+	
+	//MARK: Table View Delegate and DataSource
+	
+	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		return UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 20))
 	}
 	
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return self.people.count
 	}
 	
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: SLVPersonVCCell.reuseId) as! SLVPersonVCCell
 		
 		cell.nameLabel.text = self.people[indexPath.row].name
 		cell.delegate = self
+		cell.indexPath = indexPath;
 		
-		if (self.addingNewPeople)
-		{
-			cell.nameLabel.becomeFirstResponder()
-		}
 		return cell
 	}
 	
-	override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
 		return true
 	}
 	
-	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 		if (editingStyle == .delete) {
 			self.people.remove(at: indexPath.row)
-			self.tableView.deleteRows(at: [indexPath], with: .automatic)
+			tableView.deleteRows(at: [indexPath], with: .automatic)
 		}
 	}
 	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+	}
 	
-	//MARK: Adding People
 	@objc
-	func add () {
-		self.addingNewPeople = true
-
-		self.people.append(SLVPerson(name: ""))
+	func goToNextScreen() {
 		
-		self.tableView.beginUpdates()
-		
-		let newCellIndexPath = IndexPath(row: self.people.count - 1, section: 0)
-		self.tableView.insertRows(at: [newCellIndexPath], with: .automatic)
-		self.tableView.endUpdates()
 	}
 	
 	
@@ -119,32 +113,26 @@ class SLVPeopleVC: UITableViewController, SLVPersonVCCellDelegate // UITableView
 	
 	func didEndEnteringName(textField: UITextField) {
 		textField.resignFirstResponder()
-		self.addingNewPeople = false
+		self.addNewCell()
 	}
 	
-	//MARK: Keyboard
+	func addNewCell () {
+		self.people.append(SLVPerson(name: ""))
 
-//	func adjustInsetForKeyboardShow(_ show: Bool, notification: Notification) {
-//		let userInfo = notification.userInfo ?? [:]
-//		let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-//		let adjustmentHeight = (keyboardFrame.height + 20) * (show ? 1 : -1)
-//		self.tableView.contentInset.bottom += adjustmentHeight
-//		self.tableView.scrollIndicatorInsets.bottom += adjustmentHeight
-//	}
+		self.tableView.beginUpdates()
+		let newCellIndexPath = IndexPath(row: self.people.count - 1, section: 0)
+		self.tableView.insertRows(at: [newCellIndexPath], with: .automatic)
+		self.tableView.endUpdates()
+		
+		guard let cell = self.tableView.cellForRow(at: newCellIndexPath) as? SLVPersonVCCell else {
+			return }
+		cell.nameLabel.becomeFirstResponder()
+		self.tableView.scrollToRow(at: newCellIndexPath, at: .middle, animated: true)
+	}
 	
-//	@objc func keyboardWillShow(_ notification: Notification) {
-//		if (self.addingNewPeople == true) {
-//		adjustInsetForKeyboardShow(true, notification: notification)
-//
-//		}
-//
-//	}
-//
-//	@objc func keyboardWillHide(_ notification: Notification) {
-//		adjustInsetForKeyboardShow(false, notification: notification)
-//		self.addingNewPeople = false
-//	}
-	
+	func didBeginEnteringName(indexPath: IndexPath) {
+		
+	}
 	
 }
 
