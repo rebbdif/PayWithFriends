@@ -31,7 +31,6 @@ class SLVPeopleVC: UITableViewController, SLVPersonVCCellDelegate
 		self.navigationItem.title = "Люди"
 		let rightButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action:#selector(done))
 		self.navigationItem.rightBarButtonItem = rightButton
-		self.navigationController?.navigationBar.prefersLargeTitles = true
 		self.configureTableView()
 	}
 	
@@ -41,6 +40,10 @@ class SLVPeopleVC: UITableViewController, SLVPersonVCCellDelegate
 		self.tableView.dataSource = self
 		self.tableView.register(SLVPersonVCCell.self, forCellReuseIdentifier: SLVPersonVCCell.reuseId)
 		self.tableView.rowHeight = SLVPersonVCCell.cellHeight
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		self.navigationController?.navigationBar.prefersLargeTitles = true
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -98,7 +101,7 @@ class SLVPeopleVC: UITableViewController, SLVPersonVCCellDelegate
 	
 	@objc
 	func done() {
-		let rightButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action:#selector(goToNextScreen))
+		let rightButton = UIBarButtonItem(title: "Дальше", style: .plain, target: self, action: #selector(goToNextScreen))
 		self.navigationItem.rightBarButtonItem = rightButton
 		
 		_ = self.resignFirstResponder()
@@ -108,7 +111,7 @@ class SLVPeopleVC: UITableViewController, SLVPersonVCCellDelegate
 	
 	@objc
 	func goToNextScreen() {
-		
+		self.navigationController?.pushViewController(SLVCameraGreetingVC(), animated: true)
 	}
 	
 	@objc
