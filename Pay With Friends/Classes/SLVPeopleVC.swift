@@ -11,61 +11,47 @@ import UIKit
 
 
 /// Контроллер добавления людей
-class SLVPeopleVC: UITableViewController, SLVPersonVCCellDelegate // UITableViewDelegate, UITableViewDataSource
+class SLVPeopleVC: UITableViewController, SLVPersonVCCellDelegate
 {
-	
-    var people = [SLVPerson]()
-//	var tableView = UITableView()
-	var addingNewPeople = false
+	var people = [SLVPerson]()
 	
 	init() {
 		super.init(nibName: nil, bundle: nil)
-		self.people = [SLVPerson(name: "Mike"),
-					   SLVPerson(name: "Julia"),
-					   SLVPerson(name: "Jerom Klapka Jerom")]
+		self.people = []
+		//[SLVPerson(name: "Mike"), SLVPerson(name: "Julia"), SLVPerson(name: "Jerom")]
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		self.view.backgroundColor = .lightGray
 		self.navigationItem.title = "Люди"
-		let rightButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action:#selector(add))
+		let rightButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action:#selector(done))
 		self.navigationItem.rightBarButtonItem = rightButton
-		self.navigationController?.navigationBar.prefersLargeTitles = true
 		self.configureTableView()
-		
-//		NotificationCenter.default.addObserver(
-//			self,
-//			selector: #selector(keyboardWillShow(_:)),
-//			name: Notification.Name.UIKeyboardWillShow,
-//			object: nil
-//		)
-//		NotificationCenter.default.addObserver(
-//			self,
-//			selector: #selector(keyboardWillHide(_:)),
-//			name: Notification.Name.UIKeyboardWillHide,
-//			object: nil
-//		)
-    }
-	
-	deinit {
-		NotificationCenter.default.removeObserver(self)
 	}
 	
-	
-	//MARK: Table View
-
 	func configureTableView() {
-		self.tableView = UITableView(frame: self.view.frame)
+		self.tableView = UITableView(frame: self.view.frame, style:.plain)
 		self.tableView.delegate = self
 		self.tableView.dataSource = self
 		self.tableView.register(SLVPersonVCCell.self, forCellReuseIdentifier: SLVPersonVCCell.reuseId)
-		self.tableView.rowHeight = 80
+		self.tableView.rowHeight = SLVPersonVCCell.cellHeight
 	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		self.navigationController?.navigationBar.prefersLargeTitles = true
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		self.addNewCell()
+	}
+	
+	
+	//MARK: Table View Delegate and DataSource
 	
 	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		return UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 20))
@@ -77,14 +63,13 @@ class SLVPeopleVC: UITableViewController, SLVPersonVCCellDelegate // UITableView
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: SLVPersonVCCell.reuseId) as! SLVPersonVCCell
-		
-		cell.nameLabel.text = self.people[indexPath.row].name
 		cell.delegate = self
 		
-		if (self.addingNewPeople)
-		{
-			cell.nameLabel.becomeFirstResponder()
-		}
+		let person = self.people[indexPath.row]
+		cell.person = person;
+		cell.nameLabel.text = person.name
+		cell.setAvatar(avatar:person.avatar)
+		
 		return cell
 	}
 	
@@ -92,59 +77,115 @@ class SLVPeopleVC: UITableViewController, SLVPersonVCCellDelegate // UITableView
 		return true
 	}
 	
+	override func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
+		_ = self.resignFirstResponder()
+	}
+	
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 		if (editingStyle == .delete) {
+			tableView.beginUpdates()
 			self.people.remove(at: indexPath.row)
-			self.tableView.deleteRows(at: [indexPath], with: .automatic)
+			tableView.deleteRows(at: [indexPath], with: .automatic)
+			tableView.endUpdates()
+			if self.people.isEmpty {
+				let rightButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action:#selector(addNewCell))
+				self.navigationItem.rightBarButtonItem = rightButton
+			}
 		}
 	}
 	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+	}
 	
-	//MARK: Adding People
+	
 	@objc
-	func add () {
-		self.addingNewPeople = true
-
+	func done() {
+		let rightButton = UIBarButtonItem(title: "Дальше", style: .plain, target: self, action: #selector(goToNextScreen))
+		self.navigationItem.rightBarButtonItem = rightButton
+		
+		_ = self.resignFirstResponder()
+		self.endAddingPeople()
+		
+	}
+	
+	@objc
+	func goToNextScreen() {
+		self.navigationController?.pushViewController(SLVCameraGreetingVC(), animated: true)
+	}
+	
+	@objc
+	func addNewCell () {
 		self.people.append(SLVPerson(name: ""))
 		
-		self.tableView.beginUpdates()
-		
 		let newCellIndexPath = IndexPath(row: self.people.count - 1, section: 0)
+		self.tableView.beginUpdates()
 		self.tableView.insertRows(at: [newCellIndexPath], with: .automatic)
 		self.tableView.endUpdates()
+		
+		guard let cell = self.tableView.cellForRow(at: newCellIndexPath) as? SLVPersonVCCell else {
+			return }
+		cell.nameLabel.becomeFirstResponder()
 	}
 	
 	
 	//MARK: Cell's delegate
 	
-	func didEndEnteringName(textField: UITextField) {
-		textField.resignFirstResponder()
-		self.addingNewPeople = false
+	func cellDidBeginEnteringName(cell: SLVPersonVCCell) {
+		let rightButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action:#selector(done))
+		self.navigationItem.rightBarButtonItem = rightButton
 	}
 	
-	//MARK: Keyboard
-
-//	func adjustInsetForKeyboardShow(_ show: Bool, notification: Notification) {
-//		let userInfo = notification.userInfo ?? [:]
-//		let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-//		let adjustmentHeight = (keyboardFrame.height + 20) * (show ? 1 : -1)
-//		self.tableView.contentInset.bottom += adjustmentHeight
-//		self.tableView.scrollIndicatorInsets.bottom += adjustmentHeight
-//	}
+	func cellDidEndEnteringName(cell: SLVPersonVCCell) {
+	//	_ = cell.resignFirstResponder()
+//		guard let name = cell.nameLabel.text else { print("no name entered"); return}
+//		cell.person?.name = name
+		
+		self.isLastCell(cell: cell) ?
+			self.addNewCell() :
+			self.endAddingPeople()
+	}
 	
-//	@objc func keyboardWillShow(_ notification: Notification) {
-//		if (self.addingNewPeople == true) {
-//		adjustInsetForKeyboardShow(true, notification: notification)
-//
-//		}
-//
-//	}
-//
-//	@objc func keyboardWillHide(_ notification: Notification) {
-//		adjustInsetForKeyboardShow(false, notification: notification)
-//		self.addingNewPeople = false
-//	}
+	func isLastCell(cell: SLVPersonVCCell) -> Bool {
+		if self.people.count == 0 { return true }
+		if cell.person == self.people[self.people.count - 1] {
+			return true
+		}
+		return false
+	}
 	
+	func endAddingPeople() {
+		_ = self.resignFirstResponder()
+		self.hideKeyboard()
+		removeLastCellIfItHasNoName()
+	}
+	
+	func removeLastCellIfItHasNoName()  {
+		if self.people.last?.name == "" {
+			self.tableView.beginUpdates()
+			self.people.removeLast()
+			let indexPath = IndexPath(row: self.people.count, section: 0)
+			self.tableView.deleteRows(at: [indexPath], with: .automatic)
+			self.tableView.endUpdates()
+			if self.people.isEmpty {
+				let rightButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action:#selector(addNewCell))
+				self.navigationItem.rightBarButtonItem = rightButton
+			}
+		}
+	}
+	
+	func hideKeyboard() {
+		_ = self.resignFirstResponder()
+	}
+	
+	override func resignFirstResponder() -> Bool {
+		super.resignFirstResponder()
+		let visivleCells = self.tableView.visibleCells
+		for cell in visivleCells {
+			cell.resignFirstResponder()
+		}
+		return true
+	}
 	
 }
 

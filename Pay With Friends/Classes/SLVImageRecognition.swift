@@ -13,16 +13,20 @@ import Vision
 /// Класс, занимающийся распознаванием изображений
 class SLVImageRecognition: NSObject {
 
+	/// Кусок кода, который вызовется по окончании обработки картинок
+	typealias ImageRecognitionCompletion = (_ result: [SLVItem]) -> Void
+
+	
 	/// Функция, распознающая чек и отдающая массив
 	/// элементов чека. При этом, если элемент встречается два
 	/// раза, массив должен содержать этот элемент два раза
 	///
-	/// - Parameter image: Картинка, которую распознаем
-	/// - Returns: массив элементов чека
-	public func recogniseImage(_ image:UIImage!) -> [SLVItem] {
-		var result = [SLVItem]()
+	/// - Parameters:
+	///   - image: Картинка, которую распознаем
+	///   - completion: Кусок кода, который вызовется по окончании обработки картинок
+	public func recogniseImage(_ image:UIImage!, completion: ImageRecognitionCompletion? ){
+		let result = [SLVItem]()
 		// вот сюда приделывай вызовы CoreML и тд.
-		// приделаю
-		return result
+		if completion != nil {completion!(result)}
 	}
 }

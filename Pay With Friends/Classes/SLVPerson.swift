@@ -12,10 +12,17 @@ public class SLVPerson: NSObject {
 	var name = ""
 	var debt = ""
 	var items = [SLVItem]()
+	var avatar = SLVAvatar()
+	let uid = UUID()
 	
 	init(name:String) {
 		super.init()
 		self.name = name
 	}
+	
+	public override var description: String {
+		return "SLVPerson. name = \(name)"
+	}
+	
 }
 

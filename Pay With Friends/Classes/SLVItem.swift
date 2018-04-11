@@ -11,7 +11,8 @@ import Foundation
 public class SLVItem: NSObject {
 	var name: String
 	var price: Double
-	
+	let uid = UUID()
+
 	init(name: String, price: Double) {
 		self.name = name
 		self.price = price

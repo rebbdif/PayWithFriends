@@ -9,51 +9,45 @@
 import UIKit
 
 protocol SLVPersonVCCellDelegate {
-	func didEndEnteringName(textField:UITextField)
+	func cellDidEndEnteringName(cell:SLVPersonVCCell)
+	func cellDidBeginEnteringName(cell:SLVPersonVCCell)
 }
 
 
 class SLVPersonVCCell: UITableViewCell, UITextFieldDelegate {
 	
 	static let reuseId = "SLVPersonVCCell"
+	static let cellHeight = CGFloat(80)
+	
+	public var person : SLVPerson?
 	
 	public var avatarView = UILabel()
 	public var nameLabel = UITextField()
 	
 	public var delegate: SLVPersonVCCellDelegate?
-
+	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		
-	self.avatarView.translatesAutoresizingMaskIntoConstraints = false
-	self.nameLabel.translatesAutoresizingMaskIntoConstraints = false
+		self.avatarView.translatesAutoresizingMaskIntoConstraints = false
+		self.nameLabel.translatesAutoresizingMaskIntoConstraints = false
 		
 		self.avatarView.layer.cornerRadius = 32
 		self.avatarView.layer.masksToBounds = true
-		let result = arc4random_uniform(_:4)
-		switch result {
-		case 0:
-			self.avatarView.text = "🐯"
-			self.avatarView.backgroundColor =  UIColor.green.withAlphaComponent(0.2)
-		case 1:
-			self.avatarView.text = "🙊"
-			self.avatarView.backgroundColor =  UIColor.yellow.withAlphaComponent(0.2)
-		case 2:
-			self.avatarView.text = "🐳"
-			self.avatarView.backgroundColor =  UIColor.blue.withAlphaComponent(0.2)
-		default:
-			self.avatarView.text = "🦄"
-			self.avatarView.backgroundColor =  UIColor.red.withAlphaComponent(0.2)
-		}
 		self.avatarView.font = UIFont.systemFont(ofSize: 50)
 		self.avatarView.textAlignment = .center
 		self.contentView.addSubview(self.avatarView)
 		
 		self.nameLabel.font = UIFont.systemFont(ofSize: 32)
 		self.nameLabel.adjustsFontSizeToFitWidth = true
-		self.nameLabel.returnKeyType = .done
+		//self.nameLabel.returnKeyType = .return
 		self.nameLabel.delegate = self
 		self.contentView.addSubview(self.nameLabel)
+	}
+	
+	public func setAvatar(avatar: SLVAvatar) {
+		self.avatarView.text = avatar.text
+		self.avatarView.backgroundColor = avatar.color
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -62,7 +56,7 @@ class SLVPersonVCCell: UITableViewCell, UITextFieldDelegate {
 	
 	
 	//MARK: Constraints
-
+	
 	override func updateConstraints() {
 		let margins = self.contentView.layoutMarginsGuide
 		
@@ -75,23 +69,45 @@ class SLVPersonVCCell: UITableViewCell, UITextFieldDelegate {
 		self.nameLabel.centerYAnchor.constraint(equalTo: self.avatarView.centerYAnchor, constant: -8).isActive = true
 		self.nameLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
 		self.nameLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-
+		
 		super.updateConstraints()
 	}
 	
 	override class var requiresConstraintBasedLayout: Bool { return true }
-
-
+	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		self.nameLabel.text = nil
+		self.avatarView.text = nil
+		self.person = nil
+	}
+	
 	//MARK: UITextFieldDelegate
 	
-	func textFieldDidEndEditing(_ textField: UITextField) {
-		self.delegate?.didEndEnteringName(textField: self.nameLabel)
+	func textFieldDidBeginEditing(_ textField: UITextField) {
+		self.delegate?.cellDidBeginEnteringName(cell: self)
 	}
 	
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		self.nameLabel.endEditing(true)
+		self.delegate?.cellDidEndEnteringName(cell: self)
 		return false
 	}
 	
-
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		guard let text = textField.text else {
+			print("no text entered"); return;
+		}
+		self.person?.name = text
+	}
+	
+	override func resignFirstResponder() -> Bool {
+		self.nameLabel.resignFirstResponder()
+		return true
+	}
+	
+	override func setSelected(_ selected: Bool, animated: Bool) {
+		super.setSelected(selected, animated: animated)
+	//	self.nameLabel.becomeFirstResponder()
+	}
+	
 }
