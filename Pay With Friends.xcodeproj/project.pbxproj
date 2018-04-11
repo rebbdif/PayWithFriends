@@ -23,6 +23,7 @@
 		10E543D220718E12007F493A /* SLVColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E543D120718E12007F493A /* SLVColorHelper.swift */; };
 		10E543D42071AC10007F493A /* SLVCameraGreetingVCLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E543D32071AC10007F493A /* SLVCameraGreetingVCLabel.swift */; };
 		10E543D62071AD82007F493A /* SLVCameraGreetingVCButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E543D52071AD82007F493A /* SLVCameraGreetingVCButton.swift */; };
+		10E543DA20741E86007F493A /* SLVCheckVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E543D920741E86007F493A /* SLVCheckVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		10E543D120718E12007F493A /* SLVColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLVColorHelper.swift; sourceTree = "<group>"; };
 		10E543D32071AC10007F493A /* SLVCameraGreetingVCLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLVCameraGreetingVCLabel.swift; sourceTree = "<group>"; };
 		10E543D52071AD82007F493A /* SLVCameraGreetingVCButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLVCameraGreetingVCButton.swift; sourceTree = "<group>"; };
+		10E543D920741E86007F493A /* SLVCheckVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLVCheckVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,7 +157,9 @@
 		10CA77C32052C84100B9675E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				10D4D1D02070105600FC18FB /* Camera */,
+				10E543D820741E4E007F493A /* Check */,
+				10E543D720740D29007F493A /* Camera */,
+				10D4D1D02070105600FC18FB /* InputVariants */,
 				10CA77CF2053CC8300B9675E /* Adding People */,
 				10CA77CC2052FDF500B9675E /* Entities */,
 				10123AF32059B9E000E5F677 /* Image Recognition */,
@@ -183,14 +187,14 @@
 			name = "Adding People";
 			sourceTree = "<group>";
 		};
-		10D4D1D02070105600FC18FB /* Camera */ = {
+		10D4D1D02070105600FC18FB /* InputVariants */ = {
 			isa = PBXGroup;
 			children = (
 				10E543D32071AC10007F493A /* SLVCameraGreetingVCLabel.swift */,
 				10E543D52071AD82007F493A /* SLVCameraGreetingVCButton.swift */,
 				10D4D1D12070108700FC18FB /* SLVCameraGreetingVC.swift */,
 			);
-			name = Camera;
+			name = InputVariants;
 			sourceTree = "<group>";
 		};
 		10E543D020718DE2007F493A /* Helpers */ = {
@@ -199,6 +203,21 @@
 				10E543D120718E12007F493A /* SLVColorHelper.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		10E543D720740D29007F493A /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Camera;
+			sourceTree = "<group>";
+		};
+		10E543D820741E4E007F493A /* Check */ = {
+			isa = PBXGroup;
+			children = (
+				10E543D920741E86007F493A /* SLVCheckVC.swift */,
+			);
+			name = Check;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -343,6 +362,7 @@
 				10E543D220718E12007F493A /* SLVColorHelper.swift in Sources */,
 				10CA77D12053CCB500B9675E /* SLVImageRecognition.swift in Sources */,
 				10CA77942052C41F00B9675E /* AppDelegate.swift in Sources */,
+				10E543DA20741E86007F493A /* SLVCheckVC.swift in Sources */,
 				10CA77C92052EDA700B9675E /* SLVPerson.swift in Sources */,
 				10D4D1CF206FE14500FC18FB /* SLVAvatar.swift in Sources */,
 				10CA77C52052C87200B9675E /* SLVPeopleVC.swift in Sources */,

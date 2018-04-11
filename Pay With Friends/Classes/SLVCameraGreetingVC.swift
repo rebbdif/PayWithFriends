@@ -54,12 +54,27 @@ class SLVCameraGreetingVC: UIViewController {
 	
 	@objc
 	func openCamera() {
-		
+		let cameraVC = UIImagePickerController()
+		let checkVC = SLVCheckVC()
+		cameraVC.delegate = checkVC
+		cameraVC.sourceType = .camera;
+	//	cameraVC.mediaTypes = "kUTTypeImage"
+		cameraVC.allowsEditing = true;
+		self.present(cameraVC, animated: true, completion: {
+			self.navigationController?.pushViewController(checkVC, animated: true)
+		})
 	}
 	
 	@objc
 	func openPhotoLibrary() {
-		
+		let cameraVC = UIImagePickerController()
+		cameraVC.sourceType = .photoLibrary;
+		cameraVC.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+		cameraVC.allowsEditing = true;
+		self.present(cameraVC, animated: true, completion: {
+			self.navigationController?.pushViewController(SLVCheckVC(), animated: true)
+			
+		})
 	}
 	
 	@objc
@@ -112,9 +127,8 @@ private extension SLVCameraGreetingVC {
 		PHPhotoLibrary.requestAuthorization { (status) in
 			if status == .authorized {
 				self.openPhotoLibrary()
-			} else {
-				self.updatePhotoLibraryControls()
 			}
+			self.updatePhotoLibraryControls()
 		}
 	}
 }
