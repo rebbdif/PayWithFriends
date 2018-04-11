@@ -4,7 +4,7 @@
 //
 //  Created by Леонид Серебряный on 10/03/2018.
 //  Copyright © 2018 Леонид Серебряный. All rights reserved.
-//
+// 
 
 import UIKit
 import CoreML
@@ -27,7 +27,6 @@ class SLVImageRecognition: NSObject {
 	public func recogniseImage(_ image:UIImage!, completion: ImageRecognitionCompletion? ){
 		let result = [SLVItem]()
 		// вот сюда приделывай вызовы CoreML и тд.
-		
 		if completion != nil {completion!(result)}
 	}
 }
